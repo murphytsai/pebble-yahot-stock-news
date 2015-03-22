@@ -17,9 +17,7 @@ var loading = new UI.Card({
     body: 'Please wait...'
 });
 
-var stats = new UI.Card({scrollable: true, icon: 'IMAGES_YAHOO_STOCK_28X28_PNG'}),
-    statsVisible = false,
-    historicalData = [];
+var stats = new UI.Card({scrollable: true, icon: 'IMAGES_YAHOO_STOCK_28X28_PNG'});
 
 var URL = 'https://www.kimonolabs.com/api/7s0pa17w?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy';
 
@@ -33,8 +31,8 @@ function refresh(force, vibrate) {
         var msgbody='';
         loading.hide();
         if (statsData.length > 0) {
-            for(var i=0; i<statsData.length; i++) {
-              statsData[i].title.text
+            var showTopN=3;
+            for(var i=0; i<statsData.length && i<showTopN; i++) {
               msgbody += "Date: " + statsData[i].date + "\n";
               msgbody += "Title: " + statsData[i].title.text + "\n";
               msgbody += "\n";
