@@ -24,6 +24,7 @@ var stats = new UI.Card({scrollable: true, icon: 'IMAGES_YAHOO_STOCK_28X28_PNG'}
 var URL = 'https://www.kimonolabs.com/api/7s0pa17w?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy';
 
 function refresh(force, vibrate) {
+    stats.hide();
     loading.show();
     statsVisible = false;
     
@@ -38,18 +39,7 @@ function refresh(force, vibrate) {
           msgbody += "Title: " + statsData[i].title.text + "\n";
           msgbody += "\n";
         }
-        //msgbody='test';
-        //statsData = { backers: "??,???", total_raised: "$??,???,???" };
- 
-        /*
-        historicalData.push({time: new Date(json.lastsuccess).getTime(), backers: toNum(statsData.backers), total_raised: toNum(statsData.total_raised)});
-        nextRun = new Date(new Date(json.nextrun).getTime() + 90000);
-        var timeToNext = nextRun.getTime() - new Date().getTime();
-        stats.title(' Time Stats');
-        stats.subtitle(statsData.total_raised + ' raised from');
-        var refreshText = '\n\nLast refreshed at: ' + formatDate(new Date(json.thisversionrun)) + '\n\nShake to refresh, or it will be auto refreshed at ' + formatDate(nextRun) + '.';
-        stats.body(statsData.backers + ' backers.' + historicalAnalysisText() + refreshText);
-        */
+
         stats.body(msgbody);
         loading.hide();
         if (vibrate) {
