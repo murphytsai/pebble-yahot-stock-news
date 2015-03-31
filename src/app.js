@@ -13,44 +13,49 @@ Accel.init();
 var loading = new UI.Card({
     scrollable: true, 
     //icon: 'IMAGES_YAHOO_STOCK_28X28_PNG',
-    title: 'Y 財經快訊',
-    subtitle: '下載中',
-    body: '請稍後...',
+    title: 'Hot News',
+    subtitle: 'Downloading',
+    body: 'Please wait...',
     style: "small"
 });
 
-var URL = 'https://www.kimonolabs.com/api/7s0pa17w?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy';
+// yahoo hot news
+var URL = 'https://www.kimonolabs.com/api/7s0pa17w?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1';
+// hackernew newest
+//var URL = 'https://www.kimonolabs.com/api/d0i7qv8m?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1';
+// ptt buytogether
+//var URL = 'https://www.kimonolabs.com/api/dzbhe9r4?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1'
 var firstTime = true;
 
 function refresh(force, vibrate) {
-    loading.subtitle('下載中');
-    loading.body('請稍後...');
+    loading.subtitle('Downloading');
+    loading.body('Please wait...');
     if (firstTime) {
         loading.show();
     }
     ajax({ url: URL, type: 'json' }, function (json) {
         Vibe.vibrate('short');
         loading.subtitle('');
-        var statsData = json.results.yahoo_stock_hot_news;
+        var statsData = json.results.result_list;
         var msgbody='';
         if (statsData.length > 0) {
             var showTopN = 15;
             for(var i=0; i<statsData.length && i<showTopN; i++) {
-              msgbody += "Date: " + statsData[i].date + "\n";
+              msgbody += "Date: " + statsData[i].date.text + "\n";
               msgbody += "Title: " + statsData[i].title.text + "\n";
               msgbody += "\n";
             }
         }
         else {
-            msgbody='無最新快訊';
+            msgbody='No News Updated';
         }
         loading.body(msgbody);
     },
     function (error) {
         console.error('Error fetching stats: ', error);
         //loading.hide();
-        loading.subtitle('下載失敗');
-        loading.body('請再試一次');
+        loading.subtitle('Download Failure!');
+        loading.body('Please try it again');
     });
 }
 
