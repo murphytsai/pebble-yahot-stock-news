@@ -25,17 +25,22 @@ var URL = 'https://www.kimonolabs.com/api/7s0pa17w?apikey=W4o2kwcFgqewg9lhJBkxie
 //var URL = 'https://www.kimonolabs.com/api/d0i7qv8m?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1';
 // ptt buytogether
 //var URL = 'https://www.kimonolabs.com/api/dzbhe9r4?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1'
+var url_list={"up": "https://www.kimonolabs.com/api/7s0pa17w?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1",
+              "select": "https://www.kimonolabs.com/api/d0i7qv8m?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1",
+              "down": "https://www.kimonolabs.com/api/dzbhe9r4?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1"
+    };
 var firstTime = true;
 
-function refresh(force, vibrate) {
+function refresh(force, vibrate, btn) {
     loading.subtitle('Downloading');
-    loading.body('Please wait...');
+    loading.body('Please wait...'+btn);
     if (firstTime) {
         loading.show();
     }
+    var URL = url_list[btn];
     ajax({ url: URL, type: 'json' }, function (json) {
         Vibe.vibrate('short');
-        loading.subtitle('');
+        loading.subtitle(btn);
         var statsData = json.results.result_list;
         var msgbody='';
         if (statsData.length > 0) {
@@ -59,12 +64,35 @@ function refresh(force, vibrate) {
     });
 }
 
-function createRefreshCallback(force, vibrate) {
-    return function refresh_callback() {
-        refresh(force, vibrate);
+function createRefreshCallback(force, vibrate, btn) {
+    return function refresh_callback(btn) {
+        refresh(force, vibrate, btn);
     };
 }
 
-refresh(true, true);
+//refresh(true, true);
 loading.on('click', 'select', createRefreshCallback(true, true));
 Accel.on('tap', createRefreshCallback(true, true));
+var menu = new UI.Menu({
+    sections: [{
+      items: [{
+        title: 'Yahoo Stock',
+        icon: 'images/menu_icon.png',
+      },
+      {
+        title: 'Hacker News',
+        icon: 'images/menu_icon.png',
+      },
+       {
+        title: 'PTT BuyTogether',
+        icon: 'images/menu_icon.png',
+      }]
+    }]
+  });
+  menu.on('select', function(e) {
+    var btn=["up", "select", "down"];
+    refresh(btn[e.itemIndex]);
+    console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
+    console.log('The item is titled "' + e.item.title + '"');
+  });
+  menu.show();
