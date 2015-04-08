@@ -20,7 +20,7 @@ var loading = new UI.Card({
 });
 
 // yahoo hot news
-var URL = 'https://www.kimonolabs.com/api/7s0pa17w?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1';
+//var URL = 'https://www.kimonolabs.com/api/7s0pa17w?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1';
 // hackernew newest
 //var URL = 'https://www.kimonolabs.com/api/d0i7qv8m?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1';
 // ptt buytogether
@@ -32,8 +32,9 @@ var url_list={"up": "https://www.kimonolabs.com/api/7s0pa17w?apikey=W4o2kwcFgqew
 var firstTime = true;
 
 function refresh(force, vibrate, btn) {
+    var news={"up": "Yahoo Stock", "select": "Hacker News", "down": "PTT BuyTogether"};
     loading.subtitle('Downloading');
-    loading.body('Please wait...'+btn);
+    loading.body('Please wait...'+news[btn]);
     if (firstTime) {
         loading.show();
     }
@@ -90,9 +91,10 @@ var menu = new UI.Menu({
     }]
   });
   menu.on('select', function(e) {
-    var btn=["up", "select", "down"];
-    refresh(btn[e.itemIndex]);
-    console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
-    console.log('The item is titled "' + e.item.title + '"');
+    var btn={0:"up", 1:"select", 2:"down"};
+    //console.log(btn[e.itemIndex]);
+    refresh(true, true, btn[e.itemIndex]);
+    //console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
+    //console.log('The item is titled "' + e.item.title + '"');
   });
   menu.show();
