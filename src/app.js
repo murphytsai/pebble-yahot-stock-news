@@ -30,8 +30,11 @@ var url_list={"up": "https://www.kimonolabs.com/api/7s0pa17w?apikey=W4o2kwcFgqew
               "down": "https://www.kimonolabs.com/api/dzbhe9r4?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1"
     };
 var firstTime = true;
+var current_state = "";
 
 function refresh(force, vibrate, btn) {
+    if (btn!="up" && btn!="select" && btn!="down")
+        btn=current_state;
     var news={"up": "Yahoo Stock", "select": "Hacker News", "down": "PTT BuyTogether"};
     loading.subtitle('Downloading');
     loading.body('Please wait...'+news[btn]);
@@ -72,8 +75,8 @@ function createRefreshCallback(force, vibrate, btn) {
 }
 
 //refresh(true, true);
-loading.on('click', 'select', createRefreshCallback(true, true));
-Accel.on('tap', createRefreshCallback(true, true));
+loading.on('click', 'select', createRefreshCallback(true, true, current_state));
+Accel.on('tap', createRefreshCallback(true, true, current_state));
 var menu = new UI.Menu({
     sections: [{
       items: [{
@@ -93,6 +96,7 @@ var menu = new UI.Menu({
   menu.on('select', function(e) {
     var btn={0:"up", 1:"select", 2:"down"};
     //console.log(btn[e.itemIndex]);
+    current_state = btn[e.itemIndex];
     refresh(true, true, btn[e.itemIndex]);
     //console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
     //console.log('The item is titled "' + e.item.title + '"');
