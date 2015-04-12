@@ -4,7 +4,7 @@
         ""
     ],
     "companyName": "yftsai.tw@gmail.com",
-    "longName": "Yahoo Stock Hot News",
+    "longName": "OH Hot News",
     "projectType": "pebblejs",
     "resources": {
         "media": [
@@ -29,15 +29,20 @@
                 "type": "font"
             },
             {
-                "file": "images/yahoo_finance-28x28.png",
+                "file": "images/images.png",
                 "menuIcon": true,
+                "name": "IMAGES_IMAGES_PNG",
+                "type": "png"
+            },
+            {
+                "file": "images/yahoo_finance-28x28.png",
                 "name": "IMAGES_YAHOO_FINANCE_28X28_PNG",
                 "type": "png"
             }
         ]
     },
-    "shortName": "YStockNews",
-    "uuid": "4153b5f1-bd4a-4673-95d0-909655682631",
+    "shortName": "oHotNews",
+    "uuid": "4153b5f1-bd4a-4673-95d0-909655682632",
     "versionCode": 1,
     "versionLabel": "1.0",
     "watchapp": {

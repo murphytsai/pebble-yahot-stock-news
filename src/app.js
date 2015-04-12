@@ -44,7 +44,7 @@ function refresh(force, vibrate, btn) {
     var URL = url_list[btn];
     ajax({ url: URL, type: 'json' }, function (json) {
         Vibe.vibrate('short');
-        loading.subtitle(btn);
+        loading.subtitle(news[btn]);
         var statsData = json.results.result_list;
         var msgbody='';
         if (statsData.length > 0) {
