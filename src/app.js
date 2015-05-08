@@ -13,9 +13,9 @@ Accel.init();
 var loading = new UI.Card({
     scrollable: true, 
     //icon: 'IMAGES_YAHOO_STOCK_28X28_PNG',
-    title: 'Hot News',
-    subtitle: 'Downloading',
-    body: 'Please wait...',
+    title: 'oHotNews',
+    subtitle: '下載中',
+    body: '稍等一下...',
     style: "small"
 });
 
@@ -30,14 +30,14 @@ var url_list={"up": "https://www.kimonolabs.com/api/7s0pa17w?apikey=W4o2kwcFgqew
               "down": "https://www.kimonolabs.com/api/dzbhe9r4?apikey=W4o2kwcFgqewg9lhJBkxiev5uZlIACoy&&kimmodify=1"
     };
 var firstTime = true;
-var current_state = "";
+var current_state = "up";
 
 function refresh(force, vibrate, btn) {
     if (btn!="up" && btn!="select" && btn!="down")
         btn=current_state;
-    var news={"up": "Yahoo Stock", "select": "Hacker News", "down": "PTT BuyTogether"};
-    loading.subtitle('Downloading');
-    loading.body('Please wait...'+news[btn]);
+    var news={"up": "Y! 財經", "select": "Hacker News", "down": "PTT合購版"};
+    loading.subtitle('下載中');
+    loading.body('稍等一下...\n'+news[btn]);
     if (firstTime) {
         loading.show();
     }
@@ -56,15 +56,15 @@ function refresh(force, vibrate, btn) {
             }
         }
         else {
-            msgbody='No News Updated';
+            msgbody='啥, 沒新的新聞.';
         }
         loading.body(msgbody);
     },
     function (error) {
-        console.error('Error fetching stats: ', error);
+        //console.error('Error fetching stats: ', error);
         //loading.hide();
-        loading.subtitle('Download Failure!');
-        loading.body('Please try it again');
+        loading.subtitle('哇, 失敗了!');
+        loading.body('請再試一次');
     });
 }
 
@@ -80,7 +80,7 @@ Accel.on('tap', createRefreshCallback(true, true, current_state));
 var menu = new UI.Menu({
     sections: [{
       items: [{
-        title: 'Yahoo Stock',
+        title: 'Y! 財經',
         icon: 'images/menu_icon.png',
       },
       {
@@ -88,7 +88,7 @@ var menu = new UI.Menu({
         icon: 'images/menu_icon.png',
       },
        {
-        title: 'PTT BuyTogether',
+        title: 'PTT合購版',
         icon: 'images/menu_icon.png',
       }]
     }]
