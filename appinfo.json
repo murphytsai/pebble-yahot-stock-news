@@ -41,10 +41,11 @@
             }
         ]
     },
+    "sdkVersion": "3",
     "shortName": "oHotNews",
     "uuid": "4153b5f1-bd4a-4673-95d0-909655682632",
     "versionCode": 1,
-    "versionLabel": "2.0",
+    "versionLabel": "4.0",
     "watchapp": {
         "watchface": false
     }
